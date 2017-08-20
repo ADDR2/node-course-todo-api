@@ -14,6 +14,26 @@ const PORT = process.env.PORT;
 
 app.use(bodyParser.json());
 
+app.post('/users', (req, res) => {
+    const body = _.pick(req.body, ["email", "password"]);
+
+    const user = new User(body);
+
+    user.save()
+        .then( doc => user.generateAuthToken() )
+        .then(
+            token => {
+                res.status(200).header('x-auth', token).send(user);
+            }
+        )
+        .catch(
+            error => {
+                res.status(400).send(error);
+            }
+        );
+        //res.status(201).send(doc);
+});
+
 app.post('/todos', (req, res) => {
     const todo = new Todo({
         text: req.body.text
