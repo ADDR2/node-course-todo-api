@@ -24,12 +24,12 @@ app.post('/users', (req, res) => {
         .then( doc => user.generateAuthToken() )
         .then(
             token => {
-                res.status(200).header('x-auth', token).send(user);
+                res.status(201).header('x-auth', token).send(user);
             }
         )
         .catch(
             error => {
-                res.status(400).send(error);
+                res.status(400).send();
             }
         );
         //res.status(201).send(doc);
