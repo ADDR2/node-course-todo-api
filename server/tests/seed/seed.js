@@ -9,6 +9,11 @@ const toSign = {
 };
 const userTwoId = new ObjectID();
 
+const toSign2 = {
+    _id: userTwoId,
+    access: "auth"
+};
+
 const users = [
     {
         _id: toSign._id,
@@ -24,20 +29,28 @@ const users = [
     {
         _id: userTwoId,
         email: "Duarte@example.com",
-        password: "userTwoPass"
+        password: "userTwoPass",
+        tokens: [
+            {
+                access: toSign2.access,
+                token: jwt.sign(toSign2, 'abc123').toString()
+            }
+        ]
     }
 ];
 
 const todos = [
     {
         _id: new ObjectID(),
-        text: "First test todo"
+        text: "First test todo",
+        _creator: toSign._id
     },
     {
         _id: new ObjectID(),
         text: "Second test todo",
         completed: true,
-        completedAt: 123
+        completedAt: 123,
+        _creator: userTwoId
     }
 ];
 
