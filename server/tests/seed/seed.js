@@ -22,7 +22,7 @@ const users = [
         tokens: [
             {
                 access: toSign.access,
-                token: jwt.sign(toSign, 'abc123').toString()
+                token: jwt.sign(toSign, process.env.JWT_SECRET).toString()
             }
         ]
     },
@@ -33,7 +33,7 @@ const users = [
         tokens: [
             {
                 access: toSign2.access,
-                token: jwt.sign(toSign2, 'abc123').toString()
+                token: jwt.sign(toSign2, process.env.JWT_SECRET).toString()
             }
         ]
     }
